@@ -85,29 +85,28 @@ class Alien
 
     update()
     {
-      if(!this.angry)
-      {
-        //alien got close enough to patrol point, switch
-        if(this.checkCollision(this.targetPoint.x,this.targetPoint.y,this.patrolMinApproach))
-        {
-          if(this.targetPoint == this.patrolPoint1)
-          {
-            this.targetPoint = this.patrolPoint2;
-          }
-          else
-          {
-            this.targetPoint = this.patrolPoint1;
-          }
-        }
-        //move towards patrol point
-        this.graviticPull(this.targetPoint);
-
-      }
-	  else //angry
+      if(this.angry)
       {
         this.targetPoint = ship.pos;
         this.graviticPull(this.targetPoint);
         this.deathRayWidth = randomFromInterval(1,5);
+      }
+	    else
+      {
+         //alien got close enough to patrol point, switch
+         if(this.checkCollision(this.targetPoint.x,this.targetPoint.y,this.patrolMinApproach))
+         {
+           if(this.targetPoint == this.patrolPoint1)
+           {
+             this.targetPoint = this.patrolPoint2;
+           }
+           else
+           {
+             this.targetPoint = this.patrolPoint1;
+           }
+         }
+         //move towards patrol point
+         this.graviticPull(this.targetPoint);
       }
 
       this.vel = this.vel.limit(this.maxSpeed); //speed limiter

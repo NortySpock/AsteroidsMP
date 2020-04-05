@@ -47,6 +47,7 @@ function reset() {
     asteroids.push(new Asteroid())
 
     soundMgr = new SoundManager();
+    soundMgr.mute = true;
 
     aliens = [];
 
@@ -246,6 +247,11 @@ function keyPressed() {
   if(keyCode == ENTER || keyCode == RETURN)
   {
     reset();
+  }
+
+  if(key=='M')
+  {
+    soundMgr.mute = !soundMgr.mute
   }
 };
 
