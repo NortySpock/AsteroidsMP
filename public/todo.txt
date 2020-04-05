@@ -1,4 +1,5 @@
-move update mechanisms into each object
+create metacollide check to manage collidable objects
+create common collide check
 move all objects into one array to update and render
 make each object have a unique id for net events
 organize deletion system for gameobject array for cleanup

@@ -81,6 +81,10 @@ function draw() {
     {
       asteroids[i].update();
       asteroids[i].render();
+      if(asteroids[i].deleteFlag)
+      {
+        asteroids.splice(i,1);
+      }
     }
 
     //handle all the proton bolts
@@ -117,31 +121,12 @@ function draw() {
       let bolt = protonBolts[i];
       for(var j = asteroids.length - 1; j >= 0; j--)
       {
-        if(asteroids[j].checkCollision(bolt.pos.x,bolt.pos.y))
-        {
-          //check if the rock breaks
-          var smallRock = asteroids[j].smallerAsteroidSize();
-          if(smallRock > 12)
-          {
-            //record previous position
-            var oldPos = asteroids[j].pos
-
-            //create two more on the high end of the array
-            asteroids.push(new Asteroid(oldPos.x,oldPos.y,smallRock));
-            asteroids.push(new Asteroid(oldPos.x,oldPos.y,smallRock));
-          }
-          //delete the old asteroid
-          asteroids.splice(j,1);
-          protonBolts[i].deleteFlag = true;
-
-          points += 10;
-          soundMgr.queueSound('asteroid_break');
-        }
+        manageCollision(asteroids[j],bolt)
       }
 
       for(var j = aliens.length - 1; j >= 0; j--)
       {
-        if(aliens[j].checkCollision(bolt.pos.x,bolt.pos.y))
+        if(aliens[j].collides(bolt.pos.x,bolt.pos.y))
         {
           if(!aliens[j].angry)
           {
@@ -180,6 +165,36 @@ function draw() {
       }
 }
 
+function manageCollision(a,b)
+{
+  if(a instanceof Asteroid && b instanceof Proton)
+  {
+    if(a.collides(b.pos.x,b.pos.y))
+        {
+          //check if the rock breaks
+          var smallRock = a.smallerAsteroidSize();
+          if(smallRock > 12)
+          {
+            //record previous position
+            var oldPos = a.pos
+
+            //create two more on the high end of the array
+            asteroids.push(new Asteroid(oldPos.x,oldPos.y,smallRock));
+            asteroids.push(new Asteroid(oldPos.x,oldPos.y,smallRock));
+          }
+          //delete the old asteroid
+          a.deleteFlag = true;
+          b.deleteFlag = true;
+
+          points += 10;
+          soundMgr.queueSound('asteroid_break');
+        }
+  }
+  if(a instanceof Alien)
+  {
+    console.log("A is an Alien");
+  }
+}
 
 function mousePressed()
 {

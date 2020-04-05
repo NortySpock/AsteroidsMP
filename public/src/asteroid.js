@@ -109,7 +109,7 @@ class Asteroid extends GameObject
       }
     }
 
-    checkCollision(x,y,radius)
+    collides(x,y,radius)
     {
       if(radius)
       {

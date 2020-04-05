@@ -6,6 +6,7 @@ class GameObject
         this.vel = vel;
         this.netPriority = 1;
         this.netCreated = netCreated;
+        this.deleteFlag = false;
     }
 
     update()

@@ -64,7 +64,6 @@ class Alien extends GameObject
       {
         var deathRaySpread = randomFromInterval(this.deathRaySpreadMin,this.deathRaySpreadMax);
         var targetHeading = atan2(ship.pos.y - this.pos.y, ship.pos.x - this.pos.x);
-        var midpoint = createVector((ship.pos.x+this.pos.x)/2,(ship.pos.y+this.pos.y)/2);
 
         stroke(this.cyan);
         noFill()
@@ -97,7 +96,7 @@ class Alien extends GameObject
 	    else
       {
          //alien got close enough to patrol point, switch
-         if(this.checkCollision(this.targetPoint.x,this.targetPoint.y,this.patrolMinApproach))
+         if(this.collides(this.targetPoint.x,this.targetPoint.y,this.patrolMinApproach))
          {
            if(this.targetPoint == this.patrolPoint1)
            {
@@ -118,7 +117,7 @@ class Alien extends GameObject
       this.handleGoingOffscreen();
     }
 
-    checkCollision(x,y,radius)
+    collides(x,y,radius)
     {
       var collide1, collide2;
       if(radius)
@@ -172,11 +171,8 @@ class Alien extends GameObject
 
     getAngry()
     {
-      if(!this.angry)
-      {
-        this.angry = true;
-        this.changeColorPreservingAlpha(this.cyan);
-      }
+      this.angry = true;
+      this.changeColorPreservingAlpha(this.cyan);
     }
 
     calm()
