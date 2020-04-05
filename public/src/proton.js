@@ -1,23 +1,30 @@
-function Proton(startx,starty,radianDirection,inputvel)  //the bullets of the game
+class Proton extends GameObject  //the bullets of the game
 {
-  this.pos = createVector(startx,starty);
-  if(inputvel)
+  constructor(startx,starty,radianDirection,inputvel)
   {
-    this.vel = p5.Vector.fromAngle(radianDirection)
-    this.vel.add(inputvel)
-  } else
-  {
-    this.vel = p5.Vector.fromAngle(radianDirection)
+    let pos = createVector(startx,starty);
+    let vel;
+    if(inputvel)
+    {
+      vel = p5.Vector.fromAngle(radianDirection)
+      vel.add(inputvel)
+    } else
+    {
+      vel = p5.Vector.fromAngle(radianDirection)
+    }
+
+    let protonSpeedMult = 5;
+    vel.mult(protonSpeedMult);
+
+    super(pos,vel,0);
+
+    this.deleteFlag = false;
+    this.numberOfXCrossings = 0;
+    this.numberOfYCrossings = 0;
   }
-  this.protonSpeedMult = 5;
-  this.vel.mult(this.protonSpeedMult);
-  this.deleteFlag = false;
-  this.numberOfXCrossings = 0;
-  this.numberOfYCrossings = 0;
 
 
-
-  this.update = function()
+  update()
   {
       this.pos.add(this.vel);
 
@@ -55,12 +62,10 @@ function Proton(startx,starty,radianDirection,inputvel)  //the bullets of the ga
       }
   }
 
-  this.render = function()
+  render()
   {
-    push();
     stroke(255);
     strokeWeight(4);
     point(this.pos.x,this.pos.y);
-    pop();
   }
 }

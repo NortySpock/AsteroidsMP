@@ -1,23 +1,31 @@
-class Asteroid
+class Asteroid extends GameObject
 {
     constructor(x,y,r)
     {
+      let pos;
+      let vel;
       if(x && y)
       {
-        this.pos = createVector(x,y);
+        pos = createVector(x,y);
       }
       else //start asteroid on "random" edge
       {
         //x or y random position
         if(coinFlip())
         {
-          this.pos = createVector(randomFromInterval(0,canvasWidth),0);
+          pos = createVector(randomFromInterval(0,canvasWidth),0);
         }
         else
         {
-          this.pos = createVector(0, randomFromInterval(0,canvasHeight));
+          pos = createVector(0, randomFromInterval(0,canvasHeight));
         }
       }
+      //velocity and rotation
+      let maxvel = 3
+      vel = createVector(randomFromInterval(-maxvel,maxvel),randomFromInterval(-maxvel,maxvel));
+
+      super(pos,vel,0);
+
       if(r)
       {
         this.r = r
@@ -26,9 +34,7 @@ class Asteroid
       {
         this.r = 50;
       }
-      //velocity and rotation
-      this.maxvel = 3
-      this.vel = createVector(randomFromInterval(-this.maxvel,this.maxvel),randomFromInterval(-this.maxvel,this.maxvel));
+      
       this.rotation = 0; //radians
       this.rotationRate = radians(randomFromInterval(0,1)); //radians per frame
 

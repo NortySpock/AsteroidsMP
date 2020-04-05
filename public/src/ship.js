@@ -1,10 +1,11 @@
 "use strict";
-class Ship
+class Ship extends GameObject
 {
     constructor(color)
     {
-        this.pos = createVector(canvasWidth/2,canvasHeight/2);
-        this.vel = createVector(0,0);
+        let pos = createVector(canvasWidth/2,canvasHeight/2);
+        let vel = createVector(0,0);
+        super(pos,vel,0);
         this.rotation = 0;
         this.gunOrientation = 0;
         this.gunPos = createVector();

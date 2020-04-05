@@ -1,18 +1,21 @@
-class Alien
+class Alien extends GameObject
 {
     constructor()
     {
+        let pos;
+        let vel
         //x or y random position
         if(coinFlip())
         {
-          this.pos = createVector(randomFromInterval(0,canvasWidth),0);
+          pos = createVector(randomFromInterval(0,canvasWidth),0);
         }
         else
         {
-          this.pos = createVector(0, randomFromInterval(0,canvasHeight));
+          pos = createVector(0, randomFromInterval(0,canvasHeight));
         }
 
-        this.vel = createVector(0,0);
+        vel = createVector(0,0);
+        super(pos,vel,0);
         this.maxHealth = 3 + (millis()/1000/60); //1 + number of minutes you have been playing
         this.health = int(this.maxHealth);
         this.cyan = color(0,255,255);
