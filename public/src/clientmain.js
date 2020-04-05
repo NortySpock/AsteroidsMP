@@ -7,7 +7,7 @@ var points = 0;
 var textColor;
 var ship;
 var soundMgr;
-var debugMode = false;
+var debugMode = true;
 var frameDebug = false;
 
 var asteroids = [];
@@ -76,6 +76,7 @@ function draw() {
 
     renderText();
 
+
     //handle all the asteroids
     for(var i = asteroids.length -1; i >= 0; i--)
     {
@@ -126,23 +127,8 @@ function draw() {
 
       for(var j = aliens.length - 1; j >= 0; j--)
       {
-        if(aliens[j].collides(bolt.pos.x,bolt.pos.y))
-        {
-          if(!aliens[j].angry)
-          {
-            soundMgr.queueSound('alien_angry');
-          }
-          aliens[j].hit();
-
-          protonBolts[i].deleteFlag = true;
-        }
-      }
-
-      if(protonBolts[i].deleteFlag)
-      {
-        protonBolts.splice(i,1);
-      }
-
+        manageCollision(aliens[j],bolt);
+      }      
     }
 
     //render ship last so it overlays everything
@@ -189,10 +175,22 @@ function manageCollision(a,b)
           points += 10;
           soundMgr.queueSound('asteroid_break');
         }
+    return;
   }
-  if(a instanceof Alien)
+
+  if(a instanceof Alien && b instanceof Proton)
   {
-    console.log("A is an Alien");
+    if(a.collides(b.pos.x,b.pos.y))
+    {
+          if(!a.angry)
+          {
+            soundMgr.queueSound('alien_angry');
+          }
+          a.hit();
+
+          b.deleteFlag = true;
+    }
+    return;
   }
 }
 
@@ -241,7 +239,7 @@ function keyPressed() {
 
   if(key == 'K' && debugMode)
   {
-    ship.kill()
+    addAlien()
   }
 
   if(key == 'O' && debugMode)
@@ -291,12 +289,16 @@ var addAliensIfNeeded = function()
   }
   if (currentMillis > nextAlienSpawnTime)
   {
-    aliens.push(new Alien());
-    soundMgr.queueSound('alien_approach');
+    addAlien()
     nextAlienSpawnTime = currentMillis + alienSpawnRateInSeconds*1000;
   }
 }
 
+function addAlien()
+{
+  aliens.push(new Alien());
+  soundMgr.queueSound('alien_approach');
+}
 
 function randomFromInterval(min,max){
     return Math.random()*(max-min+1)+min;
