@@ -87,7 +87,7 @@ class Alien
     {
       if(!this.angry)
       {
-        //got close enough to patrol point, switch
+        //alien got close enough to patrol point, switch
         if(this.checkCollision(this.targetPoint.x,this.targetPoint.y,this.patrolMinApproach))
         {
           if(this.targetPoint == this.patrolPoint1)
@@ -102,7 +102,8 @@ class Alien
         //move towards patrol point
         this.graviticPull(this.targetPoint);
 
-      } else
+      }
+	  else //angry
       {
         this.targetPoint = ship.pos;
         this.graviticPull(this.targetPoint);
@@ -174,11 +175,6 @@ class Alien
         this.angry = true;
         this.changeColorPreservingAlpha(this.cyan);
       }
-    }
-
-    lineCrossed()
-    {
-      return false;
     }
 
     calm()
