@@ -63,11 +63,13 @@ class Alien extends GameObject
       if(this.angry)
       {
         var deathRaySpread = randomFromInterval(this.deathRaySpreadMin,this.deathRaySpreadMax);
+        let ship = gameObjects[playerShipGameObjectPos];
         var targetHeading = atan2(ship.pos.y - this.pos.y, ship.pos.x - this.pos.x);
 
         stroke(this.cyan);
         noFill()
         //ellipse(this.pos.x,this.pos.y,this.deathRayMaxRange); //mock out max range
+        //ellipse(this.pos.x,this.pos.y,this.deathRayMaxRange-this.scl); //mock out max range - scaling factor
         fill(this.cyan);
 
         var plusDeathRayPoint = p5.Vector.fromAngle(targetHeading+radians(deathRaySpread));
@@ -89,6 +91,7 @@ class Alien extends GameObject
     {
       if(this.angry)
       {
+        let ship = gameObjects[playerShipGameObjectPos];
         this.targetPoint = ship.pos;
         this.graviticPull(this.targetPoint);
         this.deathRayWidth = randomFromInterval(1,5);
@@ -200,5 +203,10 @@ class Alien extends GameObject
       {
         this.pos.y = canvasHeight;
       }
+    }
+
+    toString()
+    {
+      return "Alien x:"+this.pos.x.toString()+" y:"+this.pos.y.toString();
     }
 }

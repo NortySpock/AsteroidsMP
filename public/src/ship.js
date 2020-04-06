@@ -139,13 +139,14 @@ class Ship extends GameObject
     kill()
     {
       this.dead = true;
+      playerShipDead = true;
     }
-	
+
 	setColor(color)
 	{
 		this.color = color;
 	}
-	
+
 	changeColorPreservingAlpha(colorIn)
     {
       this.color = color(red(colorIn), green(colorIn),blue(colorIn),alpha(this.color));
@@ -156,5 +157,11 @@ class Ship extends GameObject
       this.color = color(red(this.color), green(this.color),blue(this.color),newAlpha);
     }
 
-	
+
+    toString()
+    {
+      return "Ship x:"+this.pos.x.toString()+" y:"+this.pos.y.toString();
+    }
+
+
 }

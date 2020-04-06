@@ -34,7 +34,7 @@ class Asteroid extends GameObject
       {
         this.r = 50;
       }
-      
+
       this.rotation = 0; //radians
       this.rotationRate = radians(randomFromInterval(0,1)); //radians per frame
 
@@ -124,5 +124,10 @@ class Asteroid extends GameObject
     smallerAsteroidSize()
     {
       return this.r * 0.4;
+    }
+
+    toString()
+    {
+      return 'Asteroid x:'+this.pos.x.toString()+" y:"+this.pos.y.toString()
     }
 }

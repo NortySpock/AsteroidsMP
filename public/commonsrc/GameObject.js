@@ -11,5 +11,11 @@ class GameObject
 
     update()
     {
+      throw new Error('You have to implement the method "update"!');
+    }
+
+    render()
+    {
+      throw new Error('You have to implement the method "render"!');
     }
 }

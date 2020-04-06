@@ -1,7 +1,4 @@
-create metacollide check to manage collidable objects
-create common collide check
-move all objects into one array to update and render
 make each object have a unique id for net events
-organize deletion system for gameobject array for cleanup
 organize sorting system for gameobject array for order of events to be stable
-make maxCollide bubbles for each object to reduce cost of collision checks?
+have system to choose stable target for aliens
+more agressively handle undefined objects in gameObjects?

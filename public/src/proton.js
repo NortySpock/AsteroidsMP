@@ -68,4 +68,9 @@ class Proton extends GameObject  //the bullets of the game
     strokeWeight(4);
     point(this.pos.x,this.pos.y);
   }
+
+  toString()
+  {
+    return 'Proton x:'+this.pos.x.toString()+' y:'+this.pos.y.toString();
+  }
 }
